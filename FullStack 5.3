@@ -1,0 +1,97 @@
+
+const products = [
+  {
+    _id: 1,
+    name: "Wireless Headphones",
+    price: 2999,
+    category: "Electronics",
+    variants: [
+      { color: "Black", size: "Standard", stock: 50 },
+      { color: "White", size: "Standard", stock: 30 }
+    ]
+  },
+  {
+    _id: 2,
+    name: "Men's T-Shirt",
+    price: 899,
+    category: "Fashion",
+    variants: [
+      { color: "Red", size: "M", stock: 100 },
+      { color: "Blue", size: "L", stock: 75 },
+      { color: "Black", size: "XL", stock: 40 }
+    ]
+  },
+  {
+    _id: 3,
+    name: "Office Chair",
+    price: 5499,
+    category: "Furniture",
+    variants: [
+      { color: "Brown", size: "Standard", stock: 25 },
+      { color: "Grey", size: "Standard", stock: 15 }
+    ]
+  }
+];
+
+// -----------------------------------------------------------
+// FUNCTIONS (simulate MongoDB operations)
+// -----------------------------------------------------------
+
+// 1️⃣ Retrieve all products
+function getAllProducts() {
+  console.log("\n🛒 All Products:");
+  console.table(products.map(p => ({ id: p._id, name: p.name, category: p.category, price: p.price })));
+}
+
+// 2️⃣ Filter products by category
+function getProductsByCategory(category) {
+  console.log(`\n📦 Products in Category: ${category}`);
+  const filtered = products.filter(p => p.category.toLowerCase() === category.toLowerCase());
+  if (filtered.length === 0) console.log("❌ No products found in this category");
+  else console.table(filtered.map(p => ({ name: p.name, price: p.price })));
+}
+
+// 3️⃣ Project specific variant details (color + stock)
+function showVariantDetails(productName) {
+  console.log(`\n🎨 Variant Details for: ${productName}`);
+  const product = products.find(p => p.name.toLowerCase() === productName.toLowerCase());
+  if (!product) console.log("❌ Product not found!");
+  else console.table(product.variants.map(v => ({ Color: v.color, Stock: v.stock })));
+}
+
+// 4️⃣ Simulate adding a new product (Insert Operation)
+function addProduct(newProduct) {
+  products.push(newProduct);
+  console.log(`\n✅ New Product Added: ${newProduct.name}`);
+}
+
+// -----------------------------------------------------------
+// MAIN EXECUTION
+// -----------------------------------------------------------
+console.log("=====================================================");
+console.log(" E-COMMERCE CATALOG USING NESTED DOCUMENT STRUCTURE ");
+console.log("=====================================================");
+
+// Show all products
+getAllProducts();
+
+// Filter by category
+getProductsByCategory("Fashion");
+
+// Show variant details for a specific product
+showVariantDetails("Wireless Headphones");
+
+// Insert new product
+addProduct({
+  _id: 4,
+  name: "Smartwatch",
+  price: 4999,
+  category: "Electronics",
+  variants: [
+    { color: "Black", size: "Medium", stock: 20 },
+    { color: "Silver", size: "Medium", stock: 10 }
+  ]
+});
+
+// Show updated product list
+getAllProducts();
